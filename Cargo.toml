@@ -2,9 +2,15 @@
 name = "libmusictheory"
 version = "0.1.0"
 authors = ["Dave Yarwood <dave.yarwood@gmail.com>"]
+build = "build.rs"
 
 [lib]
 name = "musictheory"
 crate-type = ["staticlib"]
 
 [dependencies]
+libc  = "0.2"
+regex = "0.1"
+
+[build-dependencies]
+rusty-cheddar = "0.3.0"

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "../include/musictheory.h"
 
 int main() {
   char* note = "C#4";
