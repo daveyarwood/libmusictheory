@@ -12,7 +12,7 @@ extern "C" {
 
 
 
-intptr_t music_note(char* note);
+intptr_t musictheory_note(char* note);
 
 
 

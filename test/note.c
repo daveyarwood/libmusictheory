@@ -5,6 +5,6 @@ int main() {
   char* note = "C#4";
   printf("note is %s\n", note);
 
-  int note_out = music_note(note);
-  printf("music_note(note) is %d", note_out);
+  int note_out = musictheory_note(note);
+  printf("musictheory_note(note) is %d", note_out);
 }
