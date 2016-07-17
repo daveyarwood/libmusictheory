@@ -4,8 +4,8 @@
 void test_musictheory_note() {
   char* note = "C#4";
 
-  int note_out = musictheory_note(note);
-  printf("musictheory_note(%s) is %d\n", note, note_out);
+  int note_out = musictheory_note_number(note);
+  printf("musictheory_note_number(\"%s\") is %d\n", note, note_out);
 }
 
 void test_musictheory_spell_note() {

@@ -10,7 +10,7 @@ use std::ffi::{CStr, CString};
 /// "E0"), returns an integer representing the note as an unbounded MIDI note
 /// number.
 #[no_mangle]
-pub unsafe extern fn musictheory_note(note: *mut libc::c_char) -> isize {
+pub unsafe extern fn musictheory_note_number(note: *mut libc::c_char) -> isize {
     let s = CStr::from_ptr(note).to_str().unwrap_or("");
     match Note::from_string(s) {
         Err(msg) => panic!(msg),

@@ -15,7 +15,7 @@ extern "C" {
 /// Given a string describing a note in scientific pitch (e.g. "C#5", "Dbb4",
 /// "E0"), returns an integer representing the note as an unbounded MIDI note
 /// number.
-intptr_t musictheory_note(char* note);
+intptr_t musictheory_note_number(char* note);
 
 /// Given a note number (e.g. 61 is one semitone above middle C) and a letter
 /// (as a character, e.g. 'D'), returns the correct enharmonic spelling of the
