@@ -1,4 +1,5 @@
 use regex::Regex;
+use std::iter::repeat;
 
 pub struct Note {
     letter: char,
@@ -9,13 +10,13 @@ pub struct Note {
 
 fn semitones_from_c(letter: char) -> isize {
     match letter {
-        'c' => 0,
-        'd' => 2,
-        'e' => 4,
-        'f' => 5,
-        'g' => 7,
-        'a' => 9,
-        'b' => 11,
+        'C' => 0,
+        'D' => 2,
+        'E' => 4,
+        'F' => 5,
+        'G' => 7,
+        'A' => 9,
+        'B' => 11,
         _   => panic!(format!("{} isn't a note", letter))
     }
 }
@@ -33,7 +34,7 @@ fn parse_note_components(s: &str) -> Result<Note, Option<&str>> {
             match caps.at(1) {
                 None         => { return Err(Some("missing letter")); },
                 Some(letter) => {
-                    ltr = letter.to_lowercase().chars().next().unwrap();
+                    ltr = letter.to_uppercase().chars().next().unwrap();
                 }
             }
 
@@ -53,19 +54,53 @@ fn parse_note_components(s: &str) -> Result<Note, Option<&str>> {
             return Ok(Note { letter: ltr, accidentals: accs, octave: oct });
         }
     }
-
 }
 
 impl Note {
-    pub fn from_str(s: &str) -> Result<Note, String> {
+    pub fn from_string(s: &str) -> Result<Note, String> {
         parse_note_components(s).map_err(|msg| match msg {
             None      => "Invalid note format".to_string(),
             Some(msg) => format!("Invalid note format: {} ({})", s, msg)
         })
     }
 
+    pub fn to_string(&self) -> String {
+        format!("{}{}{}", self.letter, self.accidentals_string(), self.octave)
+    }
+
     pub fn number(&self) -> isize {
         let base_note = semitones_from_c(self.letter) + (self.octave * 12) + 12;
         base_note + self.accidentals
     }
+
+    pub fn spell(note_number: isize, letter: char) -> Result<Note, String> {
+        assert!(note_number >= 0, "Note number must be >= 0.");
+
+        let letter = letter.to_uppercase().next().unwrap();
+
+        let base_note = semitones_from_c(letter);
+
+        let mut closest    = base_note;
+        let mut octave     = -1;
+        let mut difference = note_number - closest;
+
+        while difference > 6 {
+            closest += 12;
+            octave += 1;
+            difference = note_number - closest;
+        }
+
+        Ok(Note { letter: letter, accidentals: difference, octave: octave })
+    }
+
+    fn accidentals_string(&self) -> String {
+        if self.accidentals.is_positive() {
+            repeat("#").take(self.accidentals as usize).collect::<String>()
+        } else if self.accidentals.is_negative() {
+            repeat("b").take(-self.accidentals as usize).collect::<String>()
+        } else {
+            "".to_string()
+        }
+    }
+
 }
