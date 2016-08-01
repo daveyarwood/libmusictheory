@@ -3,7 +3,7 @@ extern crate regex;
 
 mod note;
 
-use note::Note;
+use note::{Note,Interval};
 use std::ffi::{CStr, CString};
 
 /// Given a string describing a note in scientific pitch (e.g. "C#5", "Dbb4",
@@ -31,5 +31,18 @@ pub unsafe extern fn musictheory_spell_note(note_number: isize,
     match Note::spell(note_number, letter) {
         Err(msg) => panic!(msg),
         Ok(note) => CString::new(note.to_string()).unwrap().into_raw()
+    }
+}
+
+/// Given a note number and an interval (provided as a string like "m3" for
+/// minor third, "M3" for major third, etc.), returns the number of the note
+/// that interval above that note.
+#[no_mangle]
+pub unsafe extern fn musictheory_note_number_plus_interval(
+    note_number: isize, interval: *mut libc::c_char) -> isize {
+    let s = CStr::from_ptr(interval).to_str().unwrap_or("");
+    match Interval::from_string(s) {
+        Err(msg) => panic!(msg),
+        Ok(interval) => Note::number_plus_interval(note_number, interval)
     }
 }

@@ -95,6 +95,17 @@ bool test_spell_note() {
   return passed;
 }
 
+bool test_note_number_plus_interval() {
+  testing("note_number_plus_interval");
+
+  test_int_equal(65, musictheory_note_number_plus_interval(60, "P4"));
+  test_int_equal(63, musictheory_note_number_plus_interval(60, "m3"));
+  test_int_equal(72, musictheory_note_number_plus_interval(60, "P8"));
+  test_int_equal(69, musictheory_note_number_plus_interval(60, "M6"));
+
+  return passed;
+}
+
 int main() {
   bool passed = true;
 
@@ -102,6 +113,7 @@ int main() {
 
   run_test(test_note_number, "test_note_number", &passed);
   run_test(test_spell_note, "test_spell_note", &passed);
+  run_test(test_note_number_plus_interval, "test_note_number_plus_interval", &passed);
 
   printf("%s\n\n", "-----");
 

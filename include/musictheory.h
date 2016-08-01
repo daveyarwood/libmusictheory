@@ -26,6 +26,11 @@ intptr_t musictheory_note_number(char* note);
 /// musictheory_spell_note(61, 'D') => "Db4"
 char* musictheory_spell_note(intptr_t note_number, char letter);
 
+/// Given a note number and an interval (provided as a string like "m3" for
+/// minor third, "M3" for major third, etc.), returns the number of the note
+/// that interval above that note.
+intptr_t musictheory_note_number_plus_interval(intptr_t note_number, char* interval);
+
 
 
 #ifdef __cplusplus
