@@ -42,21 +42,33 @@ void test_str_equal_impl(void* expected, void* actual, int lineno) {
 bool test_note_number() {
   testing("note_number");
 
+  test_int_equal(-3, musictheory_note_number("A-2"));
+  test_int_equal(-2, musictheory_note_number("Bb-2"));
+  test_int_equal(-1, musictheory_note_number("B-2"));
+  test_int_equal(0, musictheory_note_number("B#-2"));
   test_int_equal(0, musictheory_note_number("C-1"));
   test_int_equal(12, musictheory_note_number("C0"));
+  test_int_equal(21, musictheory_note_number("A0"));
   test_int_equal(24, musictheory_note_number("C1"));
+  test_int_equal(27, musictheory_note_number("Eb1"));
   test_int_equal(36, musictheory_note_number("C2"));
   test_int_equal(48, musictheory_note_number("C3"));
   test_int_equal(60, musictheory_note_number("B#3"));
   test_int_equal(60, musictheory_note_number("C4"));
+  test_int_equal(60, musictheory_note_number("Dbb4"));
   test_int_equal(61, musictheory_note_number("C#4"));
   test_int_equal(61, musictheory_note_number("Db4"));
   test_int_equal(62, musictheory_note_number("C##4"));
   test_int_equal(62, musictheory_note_number("D4"));
   test_int_equal(62, musictheory_note_number("Ebb4"));
   test_int_equal(63, musictheory_note_number("Eb4"));
+  test_int_equal(64, musictheory_note_number("D##4"));
   test_int_equal(64, musictheory_note_number("E4"));
+  test_int_equal(69, musictheory_note_number("A4"));
   test_int_equal(72, musictheory_note_number("C5"));
+  test_int_equal(127, musictheory_note_number("G9"));
+  test_int_equal(128, musictheory_note_number("G#9"));
+  test_int_equal(129, musictheory_note_number("A9"));
 
   return passed;
 }
